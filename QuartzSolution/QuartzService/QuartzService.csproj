@@ -58,6 +58,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Jobs\CustomTask.cs" />
+    <Compile Include="MainService.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="MainService.Designer.cs">
+      <DependentUpon>MainService.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Scheduler\ITaskScheduler.cs" />

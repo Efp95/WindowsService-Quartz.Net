@@ -14,7 +14,12 @@ namespace QuartzService
         /// </summary>
         static void Main()
         {
-
+            var scheduler = new Scheduler.TaskScheduler();
+#if DEBUG
+            scheduler.Run();
+#else
+            ServiceBase.Run(new MainService());
+#endif
         }
     }
 }

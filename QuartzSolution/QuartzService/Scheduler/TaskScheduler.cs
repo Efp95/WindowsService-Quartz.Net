@@ -1,12 +1,8 @@
 ﻿using Quartz;
 using Quartz.Impl;
 using QuartzService.Jobs;
-using System;
 using System.Collections.Generic;
 using System.Configuration;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace QuartzService.Scheduler
 {
@@ -16,6 +12,11 @@ namespace QuartzService.Scheduler
 
         public string Name => GetType().Name;
 
+        public TaskScheduler()
+        {
+
+        }
+
         public void Run()
         {
             // Get an instance of the Quartz.Net scheduler
@@ -24,13 +25,13 @@ namespace QuartzService.Scheduler
 
             // Define the Job to be scheduled
             IJobDetail customJob = JobBuilder.Create<CustomTask>()
-                                    .WithIdentity(new JobKey("", ""))
+                                    .WithIdentity(new JobKey("FirstJob", "MyGroup"))
                                     .RequestRecovery()
                                     .Build();
 
             // Associate a trigger with the Job
             ITrigger customTrigger = TriggerBuilder.Create()
-                                        .WithIdentity(new TriggerKey("", ""))
+                                        .WithIdentity(new TriggerKey("FirstTrigger", "MyGroup"))
                                         .StartNow()
                                         .WithCronSchedule(ConfigurationManager.AppSettings["CronInterval"])
                                         .Build();

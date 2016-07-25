@@ -7,7 +7,7 @@ namespace QuartzService.Jobs
     {
         public void Execute(IJobExecutionContext context)
         {
-            throw new NotImplementedException();
+            var x = string.Empty;
         }
     }
 }
