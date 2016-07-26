@@ -1,6 +1,6 @@
 ﻿namespace QuartzService.Scheduler
 {
-    interface ITaskScheduler
+    interface IJobScheduler
     {
         string Name { get; }
 

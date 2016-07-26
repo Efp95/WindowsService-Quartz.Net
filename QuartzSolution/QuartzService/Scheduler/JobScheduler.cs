@@ -6,13 +6,13 @@ using System.Configuration;
 
 namespace QuartzService.Scheduler
 {
-    class TaskScheduler : ITaskScheduler
+    class JobScheduler : IJobScheduler
     {
         private IScheduler _scheduler;
 
         public string Name => GetType().Name;
 
-        public TaskScheduler()
+        public JobScheduler()
         {
 
         }

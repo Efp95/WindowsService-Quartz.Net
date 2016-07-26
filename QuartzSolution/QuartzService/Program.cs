@@ -14,7 +14,7 @@ namespace QuartzService
         /// </summary>
         static void Main()
         {
-            var scheduler = new Scheduler.TaskScheduler();
+            var scheduler = new Scheduler.JobScheduler();
 #if DEBUG
             scheduler.Run();
 #else

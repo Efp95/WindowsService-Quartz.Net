@@ -13,7 +13,7 @@ namespace QuartzService
 {
     partial class MainService : ServiceBase
     {
-        ITaskScheduler scheduler;
+        IJobScheduler scheduler;
 
         public MainService()
         {
@@ -22,7 +22,7 @@ namespace QuartzService
 
         protected override void OnStart(string[] args)
         {
-            scheduler = new Scheduler.TaskScheduler();
+            scheduler = new Scheduler.JobScheduler();
             scheduler.Run();
         }
 
