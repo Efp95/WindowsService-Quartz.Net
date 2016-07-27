@@ -26,6 +26,7 @@ namespace QuartzService.Scheduler
             // Define the Job to be scheduled
             IJobDetail customJob = JobBuilder.Create<CustomTask>()
                                     .WithIdentity(new JobKey("FirstJob", "MyGroup"))
+                                    .UsingJobData("jobParameter", Name)
                                     .RequestRecovery()
                                     .Build();
 

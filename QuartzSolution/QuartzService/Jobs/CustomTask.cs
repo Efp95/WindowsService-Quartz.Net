@@ -8,9 +8,15 @@ namespace QuartzService.Jobs
     {
         private readonly ILog log = LogManager.GetLogger<CustomTask>();
 
+        // Injected from JobDataMap
+        public string JobParameter { private get; set; }
+
         public void Execute(IJobExecutionContext context)
         {
-            log.Debug($"Debugging at {DateTime.Now.ToString()}");
+            //var jobDataMap = context.JobDetail.JobDataMap;
+            //var schedulerName = jobDataMap.GetString("jobParameter");
+
+            log.Debug($"Debugging at {DateTime.Now.ToString()} From [{JobParameter}]");
         }
     }
 }
