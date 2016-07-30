@@ -1,5 +1,7 @@
-﻿using Quartz;
+﻿using Ninject;
+using Quartz;
 using Quartz.Impl;
+using QuartzService.Container;
 using QuartzService.Jobs;
 using System.Collections.Generic;
 using System.Configuration;
@@ -8,20 +10,17 @@ namespace QuartzService.Scheduler
 {
     class JobScheduler : IJobScheduler
     {
-        private IScheduler _scheduler;
+        IScheduler _scheduler;
+        readonly IKernel _kernel = NinjectConfig.Container;
 
         public string Name => GetType().Name;
-
-        public JobScheduler()
-        {
-
-        }
 
         public void Run()
         {
             // Get an instance of the Quartz.Net scheduler
             ISchedulerFactory schedulerFactory = new StdSchedulerFactory();
             _scheduler = schedulerFactory.GetScheduler();
+            _scheduler.JobFactory = new NinjectJobFactory(_kernel);
 
             // Define the Job to be scheduled
             IJobDetail customJob = JobBuilder.Create<CustomTask>()

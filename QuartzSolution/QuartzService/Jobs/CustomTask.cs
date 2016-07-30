@@ -1,16 +1,21 @@
-﻿using Common.Logging;
-using Quartz;
+﻿using Quartz;
+using QuartzService.Services;
 using System;
 
 namespace QuartzService.Jobs
 {
     class CustomTask : IJob
     {
-        private readonly ILog log = LogManager.GetLogger<CustomTask>();
+        private readonly ILogService _logService;
+
+        public CustomTask(ILogService logService)
+        {
+            _logService = logService;
+        }
 
         public void Execute(IJobExecutionContext context)
         {
-            log.Debug($"Debugging at {DateTime.Now.ToString()}");
+            _logService.Debug($"Debugging at {DateTime.Now.ToString()}");
         }
     }
 }
