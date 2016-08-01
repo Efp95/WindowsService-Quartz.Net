@@ -4,7 +4,7 @@ using System.Diagnostics;
 
 namespace QuartzService.Services
 {
-    class LogService : ILogService
+    public class LogService : ILogService
     {
         private readonly ILog _log = LogManager.GetLogger<LogService>();
 
