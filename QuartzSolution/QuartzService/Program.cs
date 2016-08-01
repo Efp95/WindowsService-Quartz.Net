@@ -1,5 +1,6 @@
 ﻿using QuartzService.Container;
 using QuartzService.Scheduler;
+using System.ServiceProcess;
 
 namespace QuartzService
 {
