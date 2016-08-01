@@ -2,7 +2,7 @@
 using System;
 using System.Diagnostics;
 
-namespace QuartzService.Services
+namespace LogJobPlugin.Services
 {
     public class LogService : ILogService
     {

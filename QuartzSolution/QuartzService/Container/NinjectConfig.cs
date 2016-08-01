@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.IO;
+using System.Linq;
 using System.Reflection;
 
 namespace QuartzService.Container
@@ -19,11 +20,6 @@ namespace QuartzService.Container
         {
             _kernel.Bind(k =>
             {
-                // Will be removed when moving Jobs to another assembly
-                k.From(Assembly.GetExecutingAssembly())
-                       .Select(type => !type.IsAbstract)
-                       .BindAllInterfaces();
-
                 foreach (var assembly in LoadDirectoryAssemblies())
                 {
                     k.From(assembly)
@@ -40,15 +36,18 @@ namespace QuartzService.Container
         private static IEnumerable<Assembly> LoadDirectoryAssemblies()
         {
             const string searchCriteria = "*.dll";
-            string pluginsFolder = ConfigurationManager.AppSettings[nameof(pluginsFolder)];
-            string pluginsPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, pluginsFolder);
+            //string pluginsFolder = ConfigurationManager.AppSettings[nameof(pluginsFolder)];
+            string pluginsPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "plugins");
 
             if (!Directory.Exists(pluginsPath))
                 yield break;
 
-            foreach (var dll in Directory.GetFiles(pluginsPath, searchCriteria, SearchOption.TopDirectoryOnly))
+            foreach (var dllPath in Directory.GetFiles(pluginsPath, searchCriteria, SearchOption.TopDirectoryOnly))
             {
-                yield return Assembly.LoadFile(dll);
+                if (!dllPath.EndsWith("Quartz.dll"))
+                {
+                    yield return Assembly.LoadFile(dllPath);
+                }
             }
 
         }

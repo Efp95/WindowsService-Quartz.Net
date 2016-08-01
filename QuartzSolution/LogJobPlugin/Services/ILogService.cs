@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace QuartzService.Services
+namespace LogJobPlugin.Services
 {
     public interface ILogService
     {

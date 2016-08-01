@@ -1,14 +1,14 @@
-﻿using Quartz;
-using QuartzService.Services;
+﻿using LogJobPlugin.Services;
+using Quartz;
 using System;
 
-namespace QuartzService.Jobs
+namespace LogJobPlugin
 {
-    class CustomTask : IJob
+    public class LogJob : IJob
     {
         private readonly ILogService _logService;
 
-        public CustomTask(ILogService logService)
+        public LogJob(ILogService logService)
         {
             _logService = logService;
         }

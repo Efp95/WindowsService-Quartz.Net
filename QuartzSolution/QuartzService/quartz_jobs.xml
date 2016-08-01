@@ -2,19 +2,18 @@
 <job-scheduling-data xmlns="http://quartznet.sourceforge.net/JobSchedulingData"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                 version="2.0">
-
   <processing-directives>
     <overwrite-existing-data>true</overwrite-existing-data>
   </processing-directives>
 
   <schedule>
 
-    <!-- Job Related to CustomTask -->
+    <!-- Job Related to LogJob from LogJobPlugin Assembly -->
     <job>
-      <name>FirstJob</name>
-      <group>MyGroup</group>
+      <name>LoadedJob</name>
+      <group>NewGroup</group>
       <description>My Dumb Job</description>
-      <job-type>QuartzService.Jobs.CustomTask, QuartzService</job-type>
+      <job-type>LogJobPlugin.LogJob, LogJobPlugin</job-type>
       <durable>true</durable>
       <recover>true</recover>
       <job-data-map>
@@ -28,13 +27,13 @@
     <!-- Trigger for CustomTask Job -->
     <trigger>
       <cron>
-        <name>FirstTrigger</name>
-        <group>MyGroup</group>
+        <name>LoadedTrgiger</name>
+        <group>NewGroup</group>
         <description>CronTriggerDescription</description>
-        <job-name>FirstJob</job-name>
-        <job-group>MyGroup</job-group>
+        <job-name>LoadedJob</job-name>
+        <job-group>NewGroup</job-group>
         <misfire-instruction>SmartPolicy</misfire-instruction>
-        <cron-expression>0 0/2 * 1/1 * ? *</cron-expression>
+        <cron-expression>0 0/1 * 1/1 * ? *</cron-expression>
       </cron>
     </trigger>
 
