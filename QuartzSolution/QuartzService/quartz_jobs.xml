@@ -1,0 +1,43 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<job-scheduling-data xmlns="http://quartznet.sourceforge.net/JobSchedulingData"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                version="2.0">
+
+  <processing-directives>
+    <overwrite-existing-data>true</overwrite-existing-data>
+  </processing-directives>
+
+  <schedule>
+
+    <!-- Job Related to CustomTask -->
+    <job>
+      <name>FirstJob</name>
+      <group>MyGroup</group>
+      <description>My Dumb Job</description>
+      <job-type>QuartzService.Jobs.CustomTask, QuartzService</job-type>
+      <durable>true</durable>
+      <recover>true</recover>
+      <job-data-map>
+        <entry>
+          <key>JobParameter</key>
+          <value>MyJobParameter</value>
+        </entry>
+      </job-data-map>
+    </job>
+
+    <!-- Trigger for CustomTask Job -->
+    <trigger>
+      <cron>
+        <name>FirstTrigger</name>
+        <group>MyGroup</group>
+        <description>CronTriggerDescription</description>
+        <job-name>FirstJob</job-name>
+        <job-group>MyGroup</job-group>
+        <misfire-instruction>SmartPolicy</misfire-instruction>
+        <cron-expression>0 0/2 * 1/1 * ? *</cron-expression>
+      </cron>
+    </trigger>
+
+  </schedule>
+
+</job-scheduling-data>

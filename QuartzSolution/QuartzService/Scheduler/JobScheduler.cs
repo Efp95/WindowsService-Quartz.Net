@@ -2,9 +2,6 @@
 using Quartz;
 using Quartz.Impl;
 using QuartzService.Container;
-using QuartzService.Jobs;
-using System.Collections.Generic;
-using System.Configuration;
 
 namespace QuartzService.Scheduler
 {
@@ -17,29 +14,12 @@ namespace QuartzService.Scheduler
 
         public void Run()
         {
-            // Get an instance of the Quartz.Net scheduler
-            ISchedulerFactory schedulerFactory = new StdSchedulerFactory();
-            _scheduler = schedulerFactory.GetScheduler();
+            // Configurartion loaded from app.config
+            ISchedulerFactory sf = new StdSchedulerFactory();
+            _scheduler = sf.GetScheduler();
+            // Set NInjectFactory to apply Dependency Injection at Job Creation
             _scheduler.JobFactory = new NinjectJobFactory(_kernel);
-
-            // Define the Job to be scheduled
-            IJobDetail customJob = JobBuilder.Create<CustomTask>()
-                                    .WithIdentity(new JobKey("FirstJob", "MyGroup"))
-                                    .RequestRecovery()
-                                    .Build();
-
-            // Associate a trigger with the Job
-            ITrigger customTrigger = TriggerBuilder.Create()
-                                        .WithIdentity(new TriggerKey("FirstTrigger", "MyGroup"))
-                                        .StartNow()
-                                        .WithCronSchedule(ConfigurationManager.AppSettings["CronInterval"])
-                                        .Build();
-
-            // Assign the Job to the scheduler
-            var dictionary = new Dictionary<IJobDetail, Quartz.Collection.ISet<ITrigger>>();
-            dictionary.Add(customJob, new Quartz.Collection.HashSet<ITrigger>() { customTrigger });
-
-            _scheduler.ScheduleJobs(dictionary, false);
+            // Start Scheduler
             _scheduler.Start();
         }
 
