@@ -13,9 +13,6 @@ namespace QuartzService.Jobs
             _logService = logService;
         }
 
-        // Injected from JobDataMap
-        public string JobParameter { private get; set; }
-
         public void Execute(IJobExecutionContext context)
         {
             _logService.Debug($"Debugging at {DateTime.Now.ToString()}");
