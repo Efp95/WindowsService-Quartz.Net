@@ -3,9 +3,7 @@ using Ninject.Extensions.Conventions;
 using Ninject.Modules;
 using System;
 using System.Collections.Generic;
-using System.Configuration;
 using System.IO;
-using System.Linq;
 using System.Reflection;
 
 namespace QuartzService.Container
@@ -36,8 +34,9 @@ namespace QuartzService.Container
         private static IEnumerable<Assembly> LoadDirectoryAssemblies()
         {
             const string searchCriteria = "*.dll";
-            //string pluginsFolder = ConfigurationManager.AppSettings[nameof(pluginsFolder)];
-            string pluginsPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "plugins");
+            const string pluginsFolderName = "jobPlugins";
+
+            string pluginsPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, pluginsFolderName);
 
             if (!Directory.Exists(pluginsPath))
                 yield break;
